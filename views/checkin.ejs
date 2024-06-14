@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check In</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            position: relative;
+            color:white;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .image-container {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            
+        }
+
+        .image-container img {
+            max-width: 100px;
+            height: auto;
+            
+        }
+
+        .form-container {
+            margin-top: 50px;
+            color:white;
+        }
+
+        .form-container label {
+            font-weight: bold;
+        }
+
+        .form-container input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 6px;
+            border: 1px solid #0f0b0b;
+            border-radius: 4px;
+            box-sizing: border-box;
+            color:white;
+        
+        }
+
+        .form-container input[type="submit"] {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #4CAF50;
+            color:white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .form-container input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <style>
+        body {
+            background-image: url('https://5.imimg.com/data5/SELLER/Default/2022/9/BH/TW/OG/131304665/old-books.jpg' ); /* Replace 'background.jpg' with the path to your image */
+            background-size: cover; /* Ensures the image covers the entire background */
+            background-position: center; /* Centers the image */
+            /* You can add more styles here to customize the background */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Check In</h2>
+        <div class="image-container">
+            <img src="https://static.thenounproject.com/png/42025-200.png" alt="Image">
+        </div>
+        <div class="form-container">
+            <form id="check-in-form">
+                
+                <label for="student-name" >Student Name:</label>
+                <input type="text" id="student-name" name="student-name" readonly>
+                <br>
+                <label for="student-id">Student ID:</label>
+                <input type="text" id="student-id" name="student-id" readonly>
+                <br>
+                <label for="course">Year:</label>
+                <input type="text" id="course" name="course" readonly>
+                <br>
+                <input type="submit" value="Check In">
+            </form>
+        </div>
+    </div>
+    <script>
+        // Function to handle form submission
+        document.getElementById('check-in-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Get the RFID tag value
+            var rfid = document.getElementById('rfid').value;
+
+            // Send AJAX request to fetch student details
+            fetch('/api/getStudentDetails?rfid=' + rfid)
+                .then(response => response.json())
+                .then(data => {
+                    // Populate student details on the form
+                    document.getElementById('student-name').value = data.name;
+                    document.getElementById('student-id').value = data.id;
+                    document.getElementById('course').value = data.course;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+    </script>
+    
+</body>
+</html>

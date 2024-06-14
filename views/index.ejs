@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check In and Check Out Buttons</title>
+    <style>
+        /* Your existing CSS styles */
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh; /* Full height of viewport for demonstration */
+        }
+
+        .button {
+            width: 50vw; /* Half of the viewport width */
+            padding: 15px 12px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            color: rgb(12, 3, 3);
+            background-color: #d2d7db; /* Default color for "Check In" */
+            border: none;
+            border-radius: 10px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .button-checkout {
+            background-color:#d2d7db; /* Color for "Check Out" */
+        }
+
+        .button:hover {
+            opacity: 0.9;
+        }
+    
+      body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+          color:rgb(144, 119, 119);
+      }
+      
+      .header {
+        background-color: rgba(56, 53, 53, 0.4) ; 
+        color: black; 
+        padding: 10px; 
+        border-radius: 5px;
+          white-space: nowrap; 
+          text-align: center;
+          font-size: 40px;
+          font-weight: bold;
+           /* padding: 200px 200px 100px 100px; */
+          color: white;
+          margin: 50px;  
+      }
+
+      /* Highlighted text style */
+      .highlighted-text {
+          background-color: #ff0; /* Yellow background */
+          color: #000; /* Black text color */
+          text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Text shadow for emphasis */
+          padding: 10px 20px; /* Adjust padding to your preference */
+          border-radius: 5px; /* Rounded corners */
+      }
+  </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>smart library</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <nav class="navbar bg-body-tertiary">
+                <div class="container">
+                  <a class="navbar-brand" href="#">
+                    <img src="https://i.pinimg.com/474x/18/18/88/18188820e5da19a3908aeb18af5246b5.jpg" alt="Bootstrap" width="40" height="30">
+                  </a>
+                </div>
+              </nav>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+            </ul>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                
+                <a class="nav-link" href="#About">About</a>
+            
+              </li>
+              <li class="nav-item">
+                
+                <a class="nav-link" href="/login">login</a>
+              </li>
+              <li class="nav-item">
+                <!-- <form action="/signup" method="GET"> -->
+                <submit><a class="nav-link" href="/signup">Sign up</a></submit>
+            <!-- </form> -->
+              </li>
+            </ul>
+          </div>
+        </div>
+        </div>
+      </nav>
+      <div id="carouselExampleCaptions" class="carousel slide">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <!-- Replace this part within your HTML file where you want to display the message -->
+            
+            <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bGlicmFyeXxlbnwwfHwwfHx8MA%3D%3D" class="d-block w-100" alt="..." width="400" height="600">
+            <div class="carousel-caption d-none d-md-block">
+              <h1><b><span class="highlighted-text">LIBRARY MANAGEMENT SYSTEM</span></b></h1>
+    <div class="button-container">
+      <div class="header">WELCOME TO LIBRARY MANAGEMENT SYSTEM</div>
+      <% if (latestTransaction && latestTransaction.isSuccess) { %>
+        <div style="text-align: center;">
+          <h1>
+             <%= latestTransaction.studentId %>
+             <%= status %>
+             <%= latestTransaction.bookId %>
+            </h1>
+        </div>
+    <% } else { %>
+        <div >No transactions found.</div>
+    <% } %>
+        <!-- <button class="button button-checkout">Check Out</button>
+        <a class="button button-checkout" href="/checkin">Check in</a> -->
+    </div>
+    
+              
+          
+              <p></p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="https://media.istockphoto.com/id/949118068/photo/books.jpg?s=612x612&w=0&k=20&c=1vbRHaA_aOl9tLIy6P2UANqQ27KQ_gSF-BH0sUjQ730=" class="d-block w-100" alt="..." width="500" height="600">
+            <div class="carousel-caption d-none d-md-block">
+              <h5><i>A good book is a journey that never ends</i></h5>
+              <p></p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="https://bsapgcollege.ac.in/images/site/library.jpeg" class="d-block w-100" alt="..." width="500" height="600">
+            <div class="carousel-caption d-none d-md-block">
+              <h5><i>Book are Gateways to endless knowledge</i></h5>
+              <p></p>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+
+      </div>
+      <br>
+      <br>
+      <br>
+      <br>
+      
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <div>
+        
+    </div>
+      <div>    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  </body>
+</html>
