@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Books - BookVista</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: rgb(144, 119, 119);
+            position: relative;
+            min-height: 100vh;
+            background-image: url('https://images.unsplash.com/photo-1535905557558-afc4877a26fc?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Section styling with overlay */
+        .overlay-section {
+            position: relative;
+            z-index: 1;
+            padding: 50px 20px;
+            text-align: center;
+            color: white;
+            width: 90%;
+            max-width: 800px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+        }
+
+        .overlay-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5); /* Darker semi-transparent overlay */
+            backdrop-filter: blur(5px); /* Increase blur effect */
+            z-index: -1;
+            border-radius: 10px;
+        }
+
+        .description-heading {
+            font-size: 30px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .books-section {
+            text-align: center; /* Center align contents */
+        }
+
+        .books-section .table {
+            display: inline-block;
+            background-color: rgba(0, 0, 0, 0.5); /* Add semi-transparent background */
+            color: white; /* White text */
+            margin-top: 20px;
+        }
+
+        .books-section .table thead th {
+            background-color: rgba(52, 58, 64, 0.7); /* Semi-transparent background */
+            color: #fff;
+        }
+
+        .books-section .table tbody tr {
+            background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent background */
+            color: #fff; /* White text */
+        }
+
+        .books-section .table tbody tr:nth-child(even) {
+            background-color: rgba(242, 242, 242, 0.2); /* Semi-transparent background */
+        }
+
+        .books-section .table th, .books-section .table td {
+            padding: 15px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        @media (max-width: 768px) {
+            .description-heading {
+                font-size: 24px;
+            }
+
+            .books-section .table th, .books-section .table td {
+                padding: 10px;
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .description-heading {
+                font-size: 20px;
+            }
+
+            .books-section .table th, .books-section .table td {
+                padding: 8px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="books-section overlay-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="description-heading">Available Books</h2>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Book ID</th>
+                                    <th>Copies Available</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% books.forEach(book => { %>
+                                    <tr>
+                                        <td><%= book.bookId %></td>
+                                        <td><%= book.copiesAvailable %></td>
+                                    </tr>
+                                <% }); %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

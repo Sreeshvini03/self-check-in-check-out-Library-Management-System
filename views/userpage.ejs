@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Page - Library</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('https://images.unsplash.com/photo-1573592371950-348a8f1d9f38?q=80&w=1949&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center top;
+            background-size: cover;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* background-color: rgba(204, 204, 204, 0.5); Translucent overlay */
+            z-index: -1; /* Ensure it stays behind content */
+        }
+
+        .container {
+            width: 80%;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+            z-index: 1; /* Ensure content stays above the overlay */
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(76, 175, 80, 0.9); /* Semi-transparent green background */
+            padding: 10px 20px;
+            border-radius: 8px 8px 0 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar h2 {
+            margin: 0;
+            color: #fff;
+            font-size: 1.8rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .logout-btn {
+            background-color: #f44336;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background-color: #d32f2f;
+        }
+
+        /* Transaction Styles */
+        .transaction {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent white background */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        .transaction h2 {
+            color: #4CAF50;
+            margin-bottom: 10px;
+            font-size: 1.6rem;
+        }
+
+        .transaction ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: left;
+        }
+
+        .transaction li {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            background-color: #fff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        .transaction li:hover {
+            background-color: #f0f0f0; /* Light gray background on hover */
+        }
+
+        .transaction p {
+            margin: 5px 0;
+        }
+
+        .transaction .status {
+            font-weight: bold;
+            color: #4CAF50; /* Green color for success */
+        }
+        .type {
+            font-weight: bold;
+        }
+        .transaction .type {
+            font-weight: bold;
+        }
+
+        .no-transaction {
+            color: #999;
+            font-style: italic;
+        }
+        .btn-info {
+            /* background-color: rgb(68, 144, 206); */
+            color: black;
+            padding: 5px 7px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .submit-choice {
+            cursor: pointer;
+        }
+        #action {
+            cursor: pointer;
+        }
+        /* Footer Styles */
+        footer {
+            margin-top: 20px;
+            color: #777;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="overlay"></div>
+    
+    <div class="container">
+        
+        <div class="navbar">
+            <h2>Welcome, <%= user.name %>!</h2>
+             <!-- Add this line -->
+            <form id="hopscotchForm">
+                <input type="hidden" id="userId" name="userId" value="<%= user.name %>">
+                <label class="type" for="action">Select action:</label>
+                <select id="action" name="action" required>
+                    <option value="borrow">Borrow</option>
+                    <option value="return">Return</option>
+                </select>
+                <button type="submit" class="submit-choice">Submit</button>
+            </form>
+            <form action="/main" method="GET">
+                <button type="submit" class="btn btn-info" >Home</button>
+            </form>
+            <form action="/logout" method="POST">
+                <button type="submit" class="logout-btn">Logout</button>
+            </form>
+            
+            <br>
+        </div>
+        <div class="summary">
+            <p><span class="type">Total Books Taken: </span><%= booksTaken.length %></p>
+            
+            <p><span class="type">Books you have:</span> </p>
+            <p>
+                <% if(booksTaken.length == 0) {%>
+                    <p>--------</p>
+                    <% } else {%>
+                <% booksTaken.forEach((bookt, index) => { %>
+                    <%= bookt %><%= (index < booksTaken.length - 1) ? ', ' : '' %>
+                <% }); %>
+                    <%}%>
+            </p>
+        </div>
+        
+        
+        <% if (latestTransaction) { %>
+            <div class="transaction">
+                <h2>Latest Transaction</h2>
+                <p><span class="status"><%= latestTransaction.isSuccess ? 'Success' : 'Failed' %></span></p>
+                <p><span class="type">Transaction Type:</span> <%= latestTransaction.transactionType %></p>
+                <p><span class="type">Timestamp:</span> <%= new Date(latestTransaction.timestamp).toLocaleString() %></p>
+                <% if (latestTransaction.transactionType === 'borrow') { %>
+                    <p><span class="type">Book Borrowed:</span> <%= latestTransaction.bookId %></p>
+                <% } else if (latestTransaction.transactionType === 'return') { %>
+                    <p><span class="type">Book Returned:</span> <%= latestTransaction.bookId %></p>
+                <% } %>
+            </div>
+        <% } else { %>
+            <p class="no-transaction">No transactions found.</p>
+        <% } %>
+        
+
+        <% if (transactions.length > 0) { %>
+            <div class="transaction">
+                <h2>Transaction History</h2>
+                <ul>
+                    <% transactions.forEach(transaction => { %>
+                        <% if (!transaction.isPending) { %>
+                            <li>
+                                <p><span class="status"><%= transaction.isSuccess ? 'Success' : 'Failed' %></span></p>
+                                <p><span class="type">Transaction Type:</span> <%= transaction.transactionType %></p>
+                                <p><span class="type">Timestamp:</span> <%= new Date(transaction.timestamp).toLocaleString() %></p>
+                                <% if (transaction.transactionType === 'borrow') { %>
+                                    <p><span class="type">Book Borrowed:</span> <%= transaction.bookId %></p>
+                                <% } else if (transaction.transactionType === 'return') { %>
+                                    <p><span class="type">Book Returned:</span> <%= transaction.bookId %></p>
+                                <% } %>
+                            </li>
+                        <% } %>
+                    <% }); %>
+                </ul>
+            </div>
+        <% } else { %>
+            <p class="no-transaction">No transaction history found.</p>
+        <% } %>
+
+        <footer>
+            &copy; <%= new Date().getFullYear() %> Library Name. All rights reserved.
+        </footer>
+    </div>
+</body>
+<script>
+    document.getElementById('hopscotchForm').addEventListener('submit', async function(e) {
+    e.preventDefault(); // Prevent default form submission
+
+    const action = document.getElementById('action').value;
+    const userId = document.getElementById('userId').value; // Fetch userId from hidden input
+
+    try {
+        // Send initial transaction data to the server
+        const response = await fetch('/api/transactions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ action, userId }) // Include userId in the request body
+        });
+
+        const responseData = await response.json(); // Parse JSON response
+        if (response.ok) {
+            console.log(responseData.message); // Log the pending message
+
+            // Assuming Hopscotch will send bookId later
+            // Implement logic to wait for Hopscotch to provide bookId
+            // This could involve polling or other mechanisms
+
+        } else {
+            console.error('Error:', responseData.error); // Log error message
+        }
+    } catch (error) {
+        console.error('Error sending transaction data:', error); // Log fetch error
+    }
+});
+
+    </script>
+
+</html>
