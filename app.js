@@ -328,7 +328,7 @@ async function createTransaction(userId, bookId, transactionType, isPending, isS
             userId,
             bookId,
             transactionType,
-            timestamp: new Date(),
+            timestamp: moment().tz('Asia/Kolkata').format('YYYY-MM-DD HH:mm:ss'),
             isSuccess, // Ensure isSuccess is a Boolean value
             isPending,
             message // Optional: You can pass a message if needed
