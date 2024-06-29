@@ -9,6 +9,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcryptjs'); 
 const session = require('express-session');
+const moment = require('moment-timezone');
 
 const app = express();
 app.use(express.json());
@@ -131,7 +132,10 @@ app.get("/home", isAuthenticated, async (req, res) => {
     try {
         const transactions = await Transaction.find({ userId: req.user.name }).sort({ timestamp: -1 });
         const latestTransaction = transactions.length > 0 ? transactions[0] : null;
-
+        const transactionsIST = transactions.map(transaction => ({
+            ...transaction.toObject(),
+            timestamp: moment(transaction.timestamp).tz('Asia/Kolkata').format('YYYY-MM-DD HH:mm:ss')
+        }));
         res.render("userpage.ejs", {
             user: req.user,
             latestTransaction: latestTransaction,
