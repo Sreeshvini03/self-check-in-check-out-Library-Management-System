@@ -404,10 +404,9 @@ async function seedBooks() {
             { bookId: 'Data Structures and Algorithms', copiesAvailable: 50 },
             { bookId: 'Cloud Computing', copiesAvailable: 50 },
             { bookId: 'Machine Learning', copiesAvailable: 50 },
-            { bookId: 'DBMS', copiesAvailable: 50 },
-            { bookId: 'OOPS', copiesAvailable: 50 },
-            { bookId: 'OS', copiesAvailable: 50 }
-            // Add more books as needed
+            { bookId: 'AC Machines', copiesAvailable: 50 },
+            { bookId: 'Power Systems', copiesAvailable: 50 },
+            { bookId: 'Control Systems', copiesAvailable: 50 }
         ];
 
         for (let bookData of booksToAdd) {
