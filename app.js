@@ -214,6 +214,9 @@ app.post('/api/completeTransaction', async (req, res) => {
     const session = await mongoose.startSession();
     session.startTransaction();
     try {
+        if (!req.user || !req.user.name) {
+            throw new Error('User not authenticated or missing user data');
+        }
         const { bookId } = req.body;
 
         if (!bookId) {
