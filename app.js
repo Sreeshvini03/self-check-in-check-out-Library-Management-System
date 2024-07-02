@@ -210,31 +210,20 @@ app.post("/api/transactions", isAuthenticated, async (req, res) => {
 // Handle second request from Hopscotch (or other source) to provide bookId
 // const mongoose = require('mongoose');
 
-app.post('/api/completeTransaction', async (req, res) => {
-    const session = await mongoose.startSession();
-    session.startTransaction();
+app.post("/api/completeTransaction", async (req, res) => {
     try {
-        if (!req.user || !req.user.name) {
-            throw new Error('User not authenticated or missing user data');
-        }
         const { bookId } = req.body;
 
         if (!bookId) {
-            await session.abortTransaction();
-            session.endSession();
             return res.status(400).json({ error: 'Missing bookId' });
         }
 
         const transaction = await Transaction.findOne({ 
-            userId: req.user.name,
             isPending: true,
-            timestamp: { $gte: new Date(Date.now() - 2 * 60 * 1000) } // Check transactions within the last 2 minutes
-        }).sort({ timestamp: -1 }).session(session).exec();
-        
+            timestamp: { $gte: new Date(Date.now() - 1 * 60 * 1000) } // Check transactions within the last 2 minutes
+        }).sort({ timestamp: -1 }).exec();
         if (!transaction) {
-            await createTransaction(req.user.name, bookId, 'borrow', false, false, 'No transaction');
-            await session.commitTransaction();
-            session.endSession();
+            createTransaction(transaction.userId, bookId, 'borrow', false, false, 'No transaction');
             return res.status(200).json({ ok: 'Transaction not found or already completed' });
         }
 
@@ -248,18 +237,13 @@ app.post('/api/completeTransaction', async (req, res) => {
             const result = await returnBook(userId, bookId);
             success = result.success;
         } else {
-            await session.abortTransaction();
-            session.endSession();
             return res.status(400).json({ error: 'Invalid action' });
         }
 
         transaction.isSuccess = success;
         transaction.isPending = false;
         transaction.bookId = bookId;
-        await transaction.save({ session });
-
-        await session.commitTransaction();
-        session.endSession();
+        await transaction.save();
 
         const message = success ? `Transaction completed successfully for book (${bookId})` : `Failed to complete transaction for book (${bookId})`;
 
@@ -267,8 +251,6 @@ app.post('/api/completeTransaction', async (req, res) => {
         res.status(200).json({ message });
 
     } catch (error) {
-        await session.abortTransaction();
-        session.endSession();
         console.error('Error completing transaction:', error);
         return res.status(500).json({ error: 'Internal server error' });
     }
